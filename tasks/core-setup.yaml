@@ -1,0 +1,18 @@
+- name: upgrade packages
+  community.general.pacman:
+    upgrade: true
+  tags:
+    - base
+    - install
+- name: install system packages build tools
+  community.general.pacman:
+    name: [ "git", "make", "cmake", "ninja", "meson", "gcc", "clang"]
+  tags:
+    - base
+    - install
+- name: install system utils
+  community.general.pacman:
+    name: [ "curl", "wget", "tar", "gzip", "btop", "lsof", "moreutils" ]
+  tags:
+    - base
+    - install

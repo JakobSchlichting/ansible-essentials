@@ -1,0 +1,13 @@
+- hosts: localhost
+  vars:
+  pre_tasks:
+    - name: Update package mana
+      become: true
+      community.general.pacman:
+        update_cache: true
+      tags:
+        - base
+        - install
+  tasks:
+    - include: tasks/core-setup.yaml
+    - include: tasks/desktop.yaml
