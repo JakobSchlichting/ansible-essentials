@@ -18,6 +18,11 @@
     name: ly
     state: started
     enabled: true
+  become: true
+  tags:
+    - install
+    - hyprland
+    - display_manager
 - name: clone hyprland repository
   ansible.builtin.git:
     repo: git@github.com:hyprwm/Hyprland.git
