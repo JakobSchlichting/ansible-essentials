@@ -7,7 +7,7 @@
     - install
 - name: install system packages build tools
   community.general.pacman:
-    name: [ "git", "make", "cmake", "ninja", "meson", "gcc", "clang"]
+    name: [ "base-devel", "git", "make", "cmake", "ninja", "meson", "gcc", "clang", "openssh" ]
   become: true
   tags:
     - base
@@ -19,3 +19,44 @@
   tags:
     - base
     - install
+- name: install rust toolchain
+  community.general.pacman:
+    name: [ "rustup" ]
+  become: true
+  tags:
+    - base
+    - install
+    - rust
+- name: rustup install rust
+  ansible.builtin.command:
+    cmd: rustup toolchain install stable
+  tags:
+    - base
+    - install
+    - rust
+- name: clone aur helper (paru)
+  ansible.builtin.git:
+    repo: https://aur.archlinux.org/paru.git
+    force: true
+    dest: /tmp/paru
+  become: true
+  tags:
+    - base
+    - install
+    - aur
+- name: set permissions for paru install
+  ansible.builtin.command:
+    cmd: chmod --recursive 777 /tmp/paru
+  become: true
+  tags:
+    - base
+    - install
+    - aur
+- name: install aur helper (paru)
+  ansible.builtin.command:
+    cmd: makepkg -si --noconfirm
+    chdir: /tmp/paru
+  tags:
+    - base
+    - install
+    - aur

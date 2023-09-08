@@ -16,7 +16,7 @@
 - name: enable display manager (ly)
   ansible.builtin.service:
     name: ly
-    state: started
+    state: stopped
     enabled: true
   become: true
   tags:
@@ -25,7 +25,7 @@
     - display_manager
 - name: clone hyprland repository
   ansible.builtin.git:
-    repo: git@github.com:hyprwm/Hyprland.git
+    repo: https://github.com/hyprwm/Hyprland.git
     dest: /tmp/hyprland
     recursive: true
   tags:

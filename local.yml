@@ -11,3 +11,12 @@
   tasks:
     - include: tasks/core-setup.yaml
     - include: tasks/desktop.yaml
+  post_tasks:
+    - name: clean up
+      ansible.builtin.command:
+        cmd: rm -rdf /tmp/paru
+      become: true
+      tags:
+        - base
+        - install
+        - aur
